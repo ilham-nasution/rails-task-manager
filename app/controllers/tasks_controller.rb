@@ -7,34 +7,26 @@ class TasksController < ApplicationController
     @tasks = Task.all
   end
 
-  def show; end
-
-  def new
-    @task = Task.new
-  end
-
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to task_path(@task)
+      render :index, status: :created
     else
-      render :new
+      render_error
     end
   end
 
-  def edit; end
-
   def update
     if @task.update(task_params)
-      redirect_to task_path(@task)
+      render :index
     else
-      render :edit # edit.html.erb
+      render_error
     end
   end
 
   def destroy
     @task.destroy
-    redirect_to tasks_path
+    head :no_content
   end
 
   private
@@ -45,5 +37,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :details, :completed)
+  end
+
+  def render_error
+    render json: { errors: @task.errors.full_messages },
+           status: :unprocessable_entity
   end
 end
