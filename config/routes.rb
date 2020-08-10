@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   defaults format: :json do
+    get '/', to: redirect('/tasks')
     get '/tasks', to: 'tasks#index'
     post 'tasks', to: 'tasks#create'
     patch '/tasks/:id', to: 'tasks#update'
