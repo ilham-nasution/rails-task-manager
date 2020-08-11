@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      render :index, status: :created
+      render json: @task, status: :created
     else
       render_error
     end
@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      render :index
+      render json: @task
     else
       render_error
     end
