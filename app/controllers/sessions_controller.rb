@@ -15,12 +15,15 @@ class SessionsController < ApplicationController
         user: user
       }
     else
-      render json: { status: 401 }
+      render json: {
+        status: 401,
+        error: 'Invalid email or password'
+      }
     end
   end
 
   def logged_in
-    if @currrent_user
+    if @current_user
       render json: {
         logged_in: true,
         user: @current_user
