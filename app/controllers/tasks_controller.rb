@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update destroy]
+  before_action :set_task, only: %i[update destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.where(user: params[:user_id])
+    render json: @tasks
   end
 
   def create
     @task = Task.new(task_params)
+    user = User.find(params[:user_id])
+    @task.user = user
     if @task.save
       render json: @task, status: :created
     else

@@ -7,10 +7,9 @@ Rails.application.routes.draw do
   get :logged_in, to: 'sessions#logged_in'
 
   defaults format: :json do
-    get '/', to: redirect('/tasks')
-    get '/tasks', to: 'tasks#index'
-    post 'tasks', to: 'tasks#create'
-    patch '/tasks/:id', to: 'tasks#update'
-    delete '/tasks/:id', to: 'tasks#destroy'
+    get '/user/:user_id/tasks', to: 'tasks#index'
+    post '/user/:user_id/tasks', to: 'tasks#create'
+    patch 'tasks/:id', to: 'tasks#update'
+    delete 'tasks/:id', to: 'tasks#destroy'
   end
 end
