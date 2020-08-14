@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if Rails.env == 'production'
-  Rails.application.config.session_store :cookie_store, key: '_todo_app', domain: 'https://glacial-taiga-73174.herokuapp.com'
+  Rails.application.config.session_store :cookie_store, key: '_todo_app', domain: :all
 else
   Rails.application.config.session_store :cookie_store, key: '_todo_app'
 end
